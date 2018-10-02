@@ -128,6 +128,6 @@ if __name__ == "__main__":
 		training = int(sys.argv[1])
 	else:
 		training = None
-	nn = Network([784, 16, 16, 16, 10])
+	nn = Network([784, 16, 16, 10])
 	nn.train(no_of_training=training)
 	nn.test()

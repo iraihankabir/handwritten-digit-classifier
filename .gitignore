@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+*.NE.swp
+.NE.swp
 .idea/
 __pycache__/
 .Network.py.swp
