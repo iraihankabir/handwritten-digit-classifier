@@ -1,6 +1,8 @@
 # Byte-compiled / optimized / DLL files
 .idea/
 __pycache__/
+.Network.py.swp
+*.Network.py.swp
 *.py[cod]
 *$py.class
 
