@@ -1,6 +1,6 @@
+#!/usr/bin/python3
 from mlxtend.data import loadlocal_mnist
 import numpy as np
-
 
 class Dataset:
 

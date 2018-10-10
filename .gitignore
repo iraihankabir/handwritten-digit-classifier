@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+*.py.save
+*.py.save.1
 *.NE.swp
 .NE.swp
 .idea/

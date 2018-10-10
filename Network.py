@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import numpy as np
 import time
 from mnist_loader import Dataset
@@ -56,7 +57,7 @@ class Network:
 	def cost_function(self, y):
 		return np.sum(np.power(np.subtract(self.a[-1],y),2))/(2.0*self.dataset.batch_size)
 
-	def nabla_functions(self, y, lr=0.1):        # output delta
+	def nabla_functions(self, y, lr=0.1):
 		cost_derivative = np.subtract(self.a[-1], y)
 		delta = cost_derivative*self.sigmoid_derivative(self.a[-1])
 		self.nabla_w[-1] = np.dot(delta, self.a[-2].T)
@@ -122,6 +123,8 @@ class Network:
 				)
 			)
 			i+=1
+
+
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:
