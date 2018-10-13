@@ -7,12 +7,14 @@ import sys
 Element wise multiplication involves with * product
 and matrix multiplication involves with numpy's dot
 '''
+
+
 class Network:
+
 	def __init__(self, layers=None):
 		# prepare dataset
 		self.dataset = Dataset(
-						input_size=layers[0],
-						batch_size=16,
+						mini_batch_size=16,
 						length=60000,
 						test_length=10000
 					)
@@ -55,7 +57,7 @@ class Network:
 		return a
 
 	def cost_function(self, y):
-		return np.sum(np.power(np.subtract(self.a[-1],y),2))/(2.0*self.dataset.batch_size)
+		return np.sum(np.power(np.subtract(self.a[-1],y),2))/(2.0*self.dataset.mini_batch_size)
 
 	def nabla_functions(self, y, lr=0.1):
 		cost_derivative = np.subtract(self.a[-1], y)
@@ -76,27 +78,29 @@ class Network:
 		self.update_weights_biases()
 
 	def update_weights_biases(self, lr=0.01):
-		self.weights = [w-(lr/self.dataset.batch_size)*nw 
+		self.weights = [w-(lr/self.dataset.mini_batch_size)*nw 
 						for w, nw in zip(self.weights, self.nabla_w)]
-		self.biases = [b-(lr/self.dataset.batch_size)*nb 
+		self.biases = [b-(lr/self.dataset.mini_batch_size)*nb 
 						for b, nb in zip(self.biases, self.nabla_b)]
 
 	# Training
 	def train(self, no_of_training=None):
-		no_of_training = 100000 if no_of_training == None else no_of_training
-		it = 1
+		no_of_training = 50000 if no_of_training == None else no_of_training
+		mb = 0 
 		training_started = time.time()
+		print("Training is in progress...")
 		for iteration in range(no_of_training):    
-			'''GET BATCH DATA'''
-			input_data, input_label = self.dataset.get_next
-			input_label = np.array(np.matrix(input_label).T)
-			input_data = input_data.T
-			# FORWARD PROPAGATION
-			self.forwardprop(input_data)
-			self.backwardprop(input_data, input_label)
-			self.update_weights_biases()
-			print('Training %s: Cost is %s'%(it, self.cost))
-			it += 1
+			mini_batches_d, mini_batches_l = self.dataset.get_mini_batches
+			print("[+] Epoch %s is in progress..."%(iteration))
+			for mini_batch_d, mini_batch_l in zip(mini_batches_d, mini_batches_l):
+				for input_data, input_label in zip(mini_batch_d, mini_batch_l):
+					input_data = np.array(np.matrix(input_data).T)
+					self.forwardprop(input_data)
+					self.backwardprop(input_data, input_label)
+					self.update_weights_biases()
+				mb += 1
+			print("[+] Epoch %s:"%(iteration),end=' ')
+			self.evaluate()
 		# print out relevant info.
 		print("Training completed in", str(round(time.time() - training_started, 2)) + 's.')
 
@@ -109,7 +113,7 @@ class Network:
 			i += 1
 		return i
 
-	def test(self):
+	def evaluate(self):
 		i = 1
 		correct = 0
 		for data, label in zip(self.dataset.test_data, self.dataset.test_label):
@@ -118,12 +122,12 @@ class Network:
 			o = self.prediction(self.think(td))
 			status = 1 if r==o else 0
 			correct += status
-			print("Test %s:Output %s, Predicted %s, Status %s, Accuracy %s"%(
+			"""print("Test %s:Output %s, Predicted %s, Status %s, Accuracy %s"%(
 					i, r, o, status, round(correct/float(i), 2)
 				)
-			)
+			)"""
 			i+=1
-
+		print("accuracy is " + str(100*(correct/float(i))) +"%")
 
 
 if __name__ == "__main__":
@@ -133,4 +137,4 @@ if __name__ == "__main__":
 		training = None
 	nn = Network([784, 16, 16, 10])
 	nn.train(no_of_training=training)
-	nn.test()
+	#nn.evaluate()
