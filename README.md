@@ -4,14 +4,14 @@
 ---
 
 ## Neural Network Structure
-![image](img/net-structure.jpeg)
+![image](src/img/net-structure.jpeg)
 ---
 ## Gradient descent to find global minima
-![image](img/gradient-descent.png)
+![image](src/img/gradient-descent.png)
 ---
 ### Sigmoid function
 > Reduce any real number value in between 0 to 1.0
-![image](/img/sigmoid.png)
+![image](src/img/sigmoid.png)
 ---
 
 # Introduction
