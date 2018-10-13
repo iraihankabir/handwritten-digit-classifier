@@ -1,6 +1,6 @@
 # handwritten-digit-classifier
-> Deep Learning project using MNIST dataset
-> With this network max 88.6 +/- 0.2 was observed
+> Deep Learning project using MNIST dataset.
+> With this network max 88.6 +/- 0.2 was observed.
 ---
 
 ## Neural Network Structure
@@ -36,7 +36,7 @@ One can play around with the net structure, keeping first and last layer fixed.
 				* Delta values calculation with **Gradient descent** method
 				* Nabla values calculation
 				* Update weights and biases with learning rate **0.1**
-			* Evaluate network's accuracy for the test dataset
+		* Evaluate network's accuracy for the test dataset
 
 > **NB:** Output layer consists total 10 neurons. Activation of each neuron denotes the corresponding digit.
 ---
