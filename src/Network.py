@@ -84,14 +84,14 @@ class Network:
 						for b, nb in zip(self.biases, self.nabla_b)]
 
 	# Training
-	def train(self, no_of_training=None):
-		no_of_training = 50000 if no_of_training == None else no_of_training
+	def train(self, epochs=None):
+		epochs = 100 if epochs == None else epochs
 		mb = 0 
 		training_started = time.time()
 		print("Training is in progress...")
-		for iteration in range(no_of_training):    
+		for epoch in range(epochs):    
 			mini_batches_d, mini_batches_l = self.dataset.get_mini_batches
-			print("[+] Epoch %s is in progress..."%(iteration))
+			print("[+] Epoch %s is in progress..."%(epoch))
 			for mini_batch_d, mini_batch_l in zip(mini_batches_d, mini_batches_l):
 				for input_data, input_label in zip(mini_batch_d, mini_batch_l):
 					input_data = np.array(np.matrix(input_data).T)
@@ -99,7 +99,7 @@ class Network:
 					self.backwardprop(input_data, input_label)
 					self.update_weights_biases()
 				mb += 1
-			print("[+] Epoch %s:"%(iteration),end=' ')
+			print("[+] Epoch %s:"%(epoch),end=' ')
 			self.evaluate()
 		# print out relevant info.
 		print("Training completed in", str(round(time.time() - training_started, 2)) + 's.')
@@ -127,14 +127,14 @@ class Network:
 				)
 			)"""
 			i+=1
-		print("accuracy is " + str(100*(correct/float(i))) +"%")
+		print("accuracy is " + str(100*(correct/float(i))) +" %")
 
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:
-		training = int(sys.argv[1])
+		epochs = int(sys.argv[1])
 	else:
-		training = None
+		epochs = None
 	nn = Network([784, 16, 16, 10])
-	nn.train(no_of_training=training)
+	nn.train(epochs=epochs)
 	#nn.evaluate()
