@@ -1,6 +1,6 @@
 # handwritten-digit-classifier
 > Deep Learning project using MNIST dataset.
-> With this network max 88.6 +/- 0.2 was observed.
+> With this network max 88.6 +/- 0.2 percent was observed.
 ---
 
 ## Neural Network Structure
